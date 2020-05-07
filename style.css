@@ -1,0 +1,51 @@
+body {
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 15px;
+  color: #101820;
+  line-height: 1.5;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#menu{
+  position: fixed;
+  top: 0px;
+  bottom: 0px;
+  height: 100%;
+  left: 0px;
+  width: 15.625em;
+  transition: left 300ms;
+}
+
+#menu div{
+  text-align: center;
+}
+
+.logo{
+  width: 60px;
+  padding: 30px;
+}
+
+.formulario{
+  list-style: none;
+  margin-right: 40px;
+  color: white;
+  font-size: larger;
+}
+
+#menu ul li a{
+  text-decoration: none;
+}
+
+.panel {
+  background: #2C3E50;
+  z-index: 9999;
+  position: fixed;
+  left: -15.625em;
+  width: 15.625em;
+}
+
+.opcoes{
+  margin-left: 250px;
+}

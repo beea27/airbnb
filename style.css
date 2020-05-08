@@ -83,27 +83,19 @@ body {
   color:#2C3E50;
 }
 
-.botoes{
-  position: absolute;
-  right: 40px;
-}
-
 #botoes{
   border: solid 2px #2C3E50;
+  background-color: #2C3E50;
+  color: #fff;
 }
 
 #botao{
-  position: absolute;
-  margin-left: 40px;
-  border: solid 2px #2C3E50;
-}
-
-button{
-  background-color: #2C3E50;
+  border: solid 1px #2C3E50;
 }
 
 .map{
   margin: 3% 3% 3% 13%;
+  border: solid 2px #2C3E50;
 }
 
 #cards{
@@ -117,8 +109,13 @@ button{
 }
 
 .btn{
-  margin-bottom: 5%;
   background-color: #2C3E50;
+}
+
+.loginCadastrar{
+  position: absolute;
+  right: 5%;
+  top: 4%;
 }
 
 #datepicker{

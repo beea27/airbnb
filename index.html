@@ -9,7 +9,8 @@
     <link rel="stylesheet" type="text/css"  href="style.css" />
     <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@600&display=swap" rel="stylesheet">
   
-    <script src="index.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"/>
     
   </head>
 
@@ -19,21 +20,56 @@
         <img class="logo" src="social-media.png">
       </div>
       <div class="formulario">
-        <div class="form-group row">
-          <label for="example-date-input" class="col-2 col-form-label">Date</label>
-          <div class="col-10">
-            <input class="form-control" type="date" value="getDate" id="example-date-input">
-          </div>
-        </div>  
+        <input type="date" id="datepicker" class="options__dates" placeholder="Por favor escolhas as datas">      
+        <select class="custom-select" id="formulario">
+          <option selected>Localização</option>
+          <option value="1">São Paulo</option>
+          <option value="2">Rio de Janeiro</option>
+          <option value="3">Fortaleza</option>
+        </select>
+
+        <select class="custom-select" id="formulario">
+          <option selected>Tipo de estadia</option>
+          <option value="1">Apartamento</option>
+          <option value="2">Casa</option>
+          <option value="3">Chácara</option>
+          <option value="4">Estúdio</option>
+          <option value="5">Loft</option>
+          <option value="6">Quarto</option>
+          <option value="7">Sítio</option>
+        </select>
+
+        <button type="button" id="formulario" class="btn btn-danger">Buscar</button>
       </div>
     </div>
-
-    <div class="opcoes">
     
-      <div id="cards"></div>
-    </div>
-      
+    <div class="options">
+      <div class="btn">
+        <button id="botao" type="button" class="btn btn-outline-dark">Ordenar por preço</button>
 
+        <div class="botoes">
+          <button id="botoes" type="button" class="btn btn-outline-dark">Cadastrar</button>
+          <button id="botoes" type="button" class="btn btn-outline-dark">Login</button>
+        </div>
+      </div>
+      
+      <div class="acomodacoes">
+        <div id="cards"></div>
+
+        <iframe class="map" zoom="10" src="https://www.google.com/maps/d/embed?mid=1ySFexUzdQPmFH-nk2wPHfzm4wx6kJKvB" width= "780" height="800"></iframe>      
+  
+      </div>
+
+    </div>
+
+    <footer>
+
+    </footer>
+
+    <script src="index.js"></script>
+    <script src="calendario.js"></script>
+    <script src="https://npmcdn.com/flatpickr/dist/flatpickr.min.js"></script>  
+    <script src="https://npmcdn.com/flatpickr/dist/l10n/pt.js"></script>
   </body>
   
 </html>

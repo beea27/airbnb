@@ -1,11 +1,8 @@
 body {
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  font-size: 15px;
+  font-size: 10px;
   color: #101820;
   line-height: 1.5;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 }
 
 #menu{
@@ -14,7 +11,7 @@ body {
   bottom: 0px;
   height: 100%;
   left: 0px;
-  width: 15.625em;
+  width: 300px;
   transition: left 300ms;
 }
 
@@ -23,19 +20,20 @@ body {
 }
 
 .logo{
-  width: 60px;
-  padding: 30px;
+  width: 120px;
+  margin: 20px;
 }
 
 .formulario{
   list-style: none;
-  margin-right: 40px;
+  margin: 40px;
   color: white;
   font-size: larger;
 }
 
-#menu ul li a{
-  text-decoration: none;
+#formulario{
+  margin: 8px;
+  text-align: center;
 }
 
 .panel {
@@ -46,6 +44,79 @@ body {
   width: 15.625em;
 }
 
-.opcoes{
-  margin-left: 250px;
+.options{
+  margin-left: 300px;
+  margin-top: 20px;
+}
+
+#photo{
+  width: 300px;
+  height: 200px;
+  border-radius: 10px;
+}
+
+.media{
+  padding: 30px;
+  border-bottom: solid 2px #2C3E50;
+  margin-left: 10%;
+  width:110%;
+}
+
+#photo:hover{
+  -moz-transform: scale(1.1);
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
+}
+
+#pages{
+  text-align: center;
+}
+
+.price{
+  color: red;
+  position: absolute;
+  right: 34%;
+  margin-top: 5%;
+}
+
+.conteudo{
+  color:#2C3E50;
+}
+
+.botoes{
+  position: absolute;
+  right: 40px;
+}
+
+#botoes{
+  border: solid 2px #2C3E50;
+}
+
+#botao{
+  position: absolute;
+  margin-left: 40px;
+  border: solid 2px #2C3E50;
+}
+
+button{
+  background-color: #2C3E50;
+}
+
+.map{
+  margin: 3% 3% 3% 13%;
+}
+
+#cards{
+  margin-top: 3%;
+}
+
+.acomodacoes{
+  display: flex;
+  justify-content: space-evenly;
+  border-top: solid 2px #2C3E50;
+}
+
+.btn{
+  margin-bottom: 5%;
+  background-color: #2C3E50;
 }

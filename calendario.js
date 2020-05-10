@@ -6,3 +6,4 @@ flatpickr("#datepicker", {
     updateCardsTotal(days_between(selected[0], selected[1]))
   }
 });
+

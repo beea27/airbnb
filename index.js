@@ -30,7 +30,7 @@ function page_events ()
 	{
 		btn.addEventListener("click", function(){
       open_page(this.id.replace("next#", ""), this);
-      li.className = "page-item active";
+      li.className = "page-item";
 		});
 	}
 }
@@ -89,8 +89,10 @@ function create_pages (data, num_card){
 			<div class="media">
 				<a href="${indice.photo}"><img src="${indice.photo}" class="align-self-center mr-3" id="photo"></a>
 				<div class="media-body conteudo">
-					<a href=""><h5 class="mt-0 conteudo"><b>${indice.property_type}</b></h5></a>
-					<p>${indice.name}</p>
+					<div class="media-title">
+						<a href=""><h5 class="mt-0 conteudo"><b>${indice.property_type}</b></h5></a>
+						<p>${indice.name}</p>
+					</div>
 					<p class="mb-0 price"><b>R$${indice.price},00/noite</b></p>
 				</div>
 			</div>
@@ -118,7 +120,8 @@ function create_pagination (here, nexts){
 		if (!nexts && here > 2)
 		{
 			li_temp = create_indice_page(here, here - 2);
-			//pagination.push(li_temp);
+      //pagination.push(li_temp);
+      li.className += " active";
 			ul.appendChild(li_temp);
 
 			if (here > 1)

@@ -1,137 +1,162 @@
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
 body {
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
   font-size: 10px;
   color: #101820;
   line-height: 1.5;
 }
 
-#menu{
-  position: fixed;
-  top: 0px;
-  bottom: 0px;
-  height: 100%;
-  left: 0px;
-  width: 300px;
-  transition: left 300ms;
+.panel {
+  width: 100%;
+  background: #2c3e50;
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-#menu div{
-  text-align: center;
-}
-
-.logo{
-  width: 120px;
-  margin: 20px;
+.logo img {
+  width: 80px;
 }
 
 .formulario{
-  list-style: none;
-  margin: 40px;
-  color: white;
-  font-size: larger;
+  margin-top: 60px;
 }
 
-#formulario{
-  margin: 8px;
-  text-align: center;
+.formulario button,
+.formulario input,
+.formulario select {
+  margin: 15px 0;
 }
 
-.panel {
-  background: #2C3E50;
-  z-index: 9999;
-  position: fixed;
-  left: -15.625em;
-  width: 15.625em;
+#datepicker {
+  display: inline-block;
+  width: 100%;
+  height: calc(1.5em + 0.75rem + 2px);
+  padding: 0.375rem 1.75rem 0.375rem 0.75rem;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #2c3e50;
+  vertical-align: middle;
+  background: #fff;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  -webkit-appearance: none;
 }
 
-.social-media{
-  text-align: center;
-  margin-top: 30%;
+.social-media ul {
+  margin-top: 1.5em;
+  display: flex;
 }
 
-.social-media-icon{
-  margin: 3%;
-  width: 40px;
+.social-media ul li {
+  margin: 0 8px;
 }
 
-.options{
-  margin-left: 300px;
-  margin-top: 20px;
+.options {
+  margin: 1em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-#photo{
-  width: 350px;
-  height: 250px;
-  border-radius: 10px;
+.menorMaior,
+.loginCadastrar,
+.acomodacoes {
+  margin: 0.65em 0;
 }
 
-.media{
-  padding: 30px;
-  border-bottom: solid 2px #2C3E50;
-  margin: 20px;
-}
-
-#photo:hover{
-  -moz-transform: scale(1.1);
-  -webkit-transform: scale(1.1);
-  transform: scale(1.1);
-}
-
-#pages{
-  text-align: center;
-}
-
-.price{
-  position: absolute;
-  right: 15%;
-  margin-top: 10%;
-}
-
-.conteudo{
-  color:#2C3E50;
-}
-
-#botoes{
-  border: solid 2px #2C3E50;
-  background-color: #2C3E50;
+#botoes {
+  border: solid 2px #2c3e50;
+  background-color: #2c3e50;
   color: #fff;
   margin: 2px;
 }
 
-#botao{
-  border: solid 1px #2C3E50;
+#botao {
+  border: solid 1px #2c3e50;
   margin: 2px;
 }
 
-.menorMaior{
-  margin-left: 5%;
-}
-
-.acomodacoes{
+.media {
+  border-bottom: 2px solid #2c3e50;
+  margin: 2em 0;
   display: flex;
-  justify-content: center;
-  margin-top: 3px;
+  flex-direction: column;
 }
 
-.loginCadastrar{
-  position: absolute;
-  right: 5%;
-  top: 4%;
+.media a,
+.media a img {
+  display: block;
 }
 
-#datepicker{
-  display: inline-block;
+.media a img {
   width: 100%;
-  height: calc(1.5em + .75rem + 2px);
-  padding: .375rem 1.75rem .375rem .75rem;
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 1.5;
-  color: #2C3E50;
-  vertical-align: middle;
-  background: #fff;
-  border: 1px solid #ced4da;
-  border-radius: .25rem;
-  -webkit-appearance: none;
-  margin: 8px;
+  border-radius: 10px;
+}
+
+.conteudo {
+  color: #2c3e50;
+}
+
+@media (min-width: 640px) {
+  #menu {
+    position: fixed;
+    top: 0px;
+    bottom: 0px;
+    height: 100%;
+    left: 0px;
+    width: 300px;
+    transition: left 300ms;
+    z-index: 999;
+  }
+
+  .panel {
+    justify-content: flex-start;
+  }
+
+  .options {
+    width: calc(100% - 360px);
+    position: relative;
+    left: 310px;
+  }
+}
+
+@media (min-width: 980px) {
+  .options-buttons {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+@media (min-width: 1024px) {
+  .media a img {
+    max-width: 350px;
+    max-height: 250px;
+    margin-bottom: 1em;
+  }
+
+  .media {
+    height: 280px; /* adiciona essa linha */
+    flex-direction: row;
+  }
+  .media-body {
+    height: 100%; /* adiciona essa linha */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .price {
+    text-align: right;
+  }
 }

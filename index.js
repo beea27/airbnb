@@ -1,220 +1,144 @@
-window.addEventListener("load", start_events);
+const API_URL = "https://api.sheety.co/30b6e400-9023-4a15-8e6c-16aa4e3b1e72";
 
-async function start_events ()
-{
-	chama_fetch();
+const fetchAPI = async (url) => {
+	let response = await fetch(url)
+	const textResponse = await response.text()
+	return JSON.parse(textResponse)
 }
 
-function page_events ()
-{
-	btn_pages = document.getElementsByClassName("page_btn");
-	for (btn of btn_pages)
-	{
-		btn.addEventListener("click", function(){
-			n = this.id.indexOf('#') + 1;
-			id = this.id.substring(n);
-      open_page(id, this);
-		});
-	}
+let currentPage = 1;
+const ITEMS_PER_PAGE = 6;
 
-	btn_prevs = document.getElementsByClassName("btn_prev");
-	for (btn of btn_prevs)
-	{
-		btn.addEventListener("click", function(){
-			open_page(this.id.replace("prev#", ""), this);
-		});
-	}
-
-	btn_nexts = document.getElementsByClassName("btn_next");
-	for (btn of btn_nexts)
-	{
-		btn.addEventListener("click", function(){
-      open_page(this.id.replace("next#", ""), this);
-      li.className = "page-item";
-		});
-	}
+const paginateData = (data) => {
+    return data.reduce((total, current, index) => {
+      const belongArrayIndex = Math.ceil((index + 1) / ITEMS_PER_PAGE) - 1;
+      total[belongArrayIndex] ? total[belongArrayIndex].push(current) : total.push([current]);
+      return total;
+    }, [])
 }
 
-function chama_fetch(){
+const changePage = (pageToBeRendered) => {
+	currentPage = pageToBeRendered
+	renderPage()
+}
+//método de mudar de página
 
-	const url = "https://api.sheety.co/30b6e400-9023-4a15-8e6c-16aa4e3b1e72";
+const renderPaginationMenu = (paginatedData) => {
+
+	paginationContainer = document.querySelector(".pagination");
+	//colocamos nossa div container dos cards em uma variável
+
+	while (paginationContainer.firstChild) {
+			paginationContainer.removeChild(paginationContainer.firstChild)
+	}
+	//esvaziamos essa div a cada render para que não seja rendedrizado o menu com os dados da página antiga do usuário
 	
-	fetch(url)
-	.then(response => response.json())
-	.then(data => {
+	const previousPage = document.createElement('span')
+	previousPage.className = 'page-changer'
+	previousPage.innerHTML = '<'
+	previousPage.addEventListener('click', () => currentPage <= 1 ? () => { } : changePage(currentPage - 1))
+	paginationContainer.appendChild(previousPage)
+	//geramos um botão que ao ser clicado atualiza chama o método de mudar de página passando a página anterior se a página
+	//atual não for 1
 
-	card = document.getElementById("cards");
+	paginatedData.forEach((_, index) => {
+			//para cada array (página) dentro do nosso array total criaremos um botão numerado para ir para aquela página
+			const pageButton = document.createElement('span')
+			pageButton.innerHTML = index + 1 //index + 1 porque os indices começam em 0 e queremos mostrar a primeira página como 1
 
-	card.appendChild(create_pages(data, 5));
-	page_events ();
-	
-	console.log(data);
-	})
-	.catch(err => console.log(err));
-}
+			pageButton.addEventListener('click', () => changePage(index + 1))
 
-function create_pages (data, num_card){
-	content = document.createElement("div");
-	content.className = "pages-struct";
-
-	for (var i = 0; i < data.length; i += num_card)
-	{
-		indice = i/num_card + 1;
-
-		page = document.createElement("div");
-		page.className = "pages";
-		page.id = "page_" + indice;
-
-		if (!i)
-		{
-			page.className += " active";
-		}
-		else
-		{
-			page.style.display = "none";
-		}
-
-		nexts = Math.round(data.length/num_card) - indice;
-		pagination = create_pagination (indice,  nexts);
-
-		page.innerHTML = "";
-		for (var j = i; j < (i+num_card); j++)
-		{
-			if (j == data.length)
-			break;
-
-			indice = data[j];
-
-			page.innerHTML += `
-			<div class="media">
-				<a href="${indice.photo}"><img src="${indice.photo}" class="align-self-center mr-3" id="photo"></a>
-				<div class="media-body conteudo">
-					<div class="media-title">
-						<a href=""><h5 class="mt-0 conteudo"><b>${indice.property_type}</b></h5></a>
-						<p>${indice.name}</p>
-					</div>
-					<p class="mb-0 price"><b>R$${indice.price},00/noite</b></p>
-				</div>
-			</div>
-			`;
-		}
-
-		page.appendChild(pagination);
-		content.appendChild(page);
-	}
-
-	return content;
-}
-
-function create_pagination (here, nexts){
-	ul = document.createElement("ul");
-	ul.className = "pagination pagination-md";
-
-	//pagination = [];
-	if (here > 1)
-	{
-		li_p = create_previously_btn(here - 1);
-		//pagination.push(li_p);
-		ul.appendChild(li_p);
-
-		if (!nexts && here > 2)
-		{
-			li_temp = create_indice_page(here, here - 2);
-      //pagination.push(li_temp);
-      li.className += " active";
-			ul.appendChild(li_temp);
-
-			if (here > 1)
-			{
-				li_temp2 = create_indice_page(here, here - 1);
-				//pagination.push(li_temp2);
-				ul.appendChild(li_temp2);
+			if (currentPage === index + 1) {
+					pageButton.className = 'active'
 			}
-		}
-	}
-		
-	if (nexts == 1 && here > 2)
-	{
-		li_temp3 = create_indice_page(here, here - 1);
-		ul.appendChild(li_temp3);
-	}
 
-	li = create_indice_page(here, here);
-	//pagination.push(li);
-	ul.appendChild(li);
+			paginationContainer.appendChild(pageButton)
+	})
 
-	if (nexts > 0)
-	{
-		li1 = create_indice_page(here, here + 1);
-		//pagination.push(li1);
-		ul.appendChild(li1);
-		if (nexts > 1)
-		{
-			li2 = create_indice_page(here, here + 2);
-			//pagination.push(li2);
-			ul.appendChild(li2);
-		}
+	const nextPage = document.createElement('span')
+	nextPage.className = 'page-changer'
+	nextPage.innerHTML = '>'
+	nextPage.addEventListener('click', () => currentPage >= paginatedData.length ? () => { } : changePage(currentPage + 1))
 
-		li_n = create_next_btn(here + 1);
-		//pagination.push(li_n);
-		ul.appendChild(li_n);
-	}
+	paginationContainer.appendChild(nextPage)
 
-	return ul;
+	//por fim, método de avançãr a página que funciona igual o de voltar a página só que ao contrário :)
 }
 
-const create_indice_page = function (from, to){
-	li = document.createElement("li");
-	li.className = "page-item";
+// items.sort(function (a, b) {
+//   if (a.name > b.name) {
+//     return 1;
+//   }
+//   if (a.name < b.name) {
+//     return -1;
+//   }
+//   return 0;
+// });
 
-	button = document.createElement("button");
-	button.className = "page-link page_btn";
-	button.id = `page${from}goto#page_${to}`; 
-	button.innerHTML = to;
+const renderPage = async (url) => {
+	const apiData = await fetchAPI(API_URL);
 
-	li.appendChild(button);
+	const paginatedData = paginateData(apiData);
 
-	return li;
-}
+	renderPaginationMenu(paginatedData);
 
-const create_previously_btn = function (indice){
-	li = document.createElement("li");
-	li.className = "page-item";
+	cardContainer = document.getElementById("cards");
 
-	button = document.createElement("button");
-	button.className = "page-link btn_prev";
-	button.id = "prev#page_" + indice;
-	button.innerHTML = "Anterior";
-
-	li.appendChild(button);
-
-	return li;
-}
-
-const create_next_btn = function (indice){
-	li = document.createElement("li");
-	li.className = "page-item";
-
-	button = document.createElement("button");
-	button.className = "page-link btn_next";
-	button.id = "next#page_" + indice;
-	button.innerHTML = "Próximo";
-
-	li.appendChild(button);
-
-	return li;
-}
-
-function open_page (id_page, link)
-{
-	pages = document.getElementsByClassName("pages");
-	for (page of pages)
-	{
-		page.classList.remove("active");
-		page.style.display = "none";
+	while (cardContainer.firstChild) {
+		cardContainer.removeChild(cardContainer.firstChild)
 	}
 
-	curr_page = document.getElementById(id_page);
-	curr_page.style.display = "block";
-	curr_page.className += " active";
+	paginatedData[currentPage-1].forEach(property => {
+		const { name, photo, price, property_type } = property;
+
+		cardContainer.innerHTML += `
+		<div class="media">
+			<a href="${photo}"><img src="${photo}" class="align-self-center mr-3" id="photo"></a>
+			<div class="media-body conteudo">
+				<div class="media-title">
+					<a href=""><h5 class="mt-0 conteudo"><b>${property_type}</b></h5></a>
+					<p>${name}</p>
+				</div>
+				<p class="mb-0 price"><b>R$${price},00/noite</b></p>
+			</div>
+		</div
+		>
+		`;
+	});
 }
+
+function initMap() {
+	const locations = [
+			['Avenida Paulista', -23.563311, -46.654275, 5],
+			['Gama Academy', -23.567427, -46.684607, 4],
+			['Marco Zero', -23.550460, -46.633934, 3],
+			['Manly Beach', -33.80010128657071, 151.28747820854187, 2],
+			['Maroubra Beach', -33.950198, 151.259302, 1]
+	];
+
+	const map = new google.maps.Map(document.getElementById('map'), {
+			zoom: 10,
+			center: new google.maps.LatLng(-23.550460, -46.633934),
+			mapTypeId: google.maps.MapTypeId.ROADMAP
+	});
+
+	const infowindow = new google.maps.InfoWindow();
+
+	let marker, i;
+
+	for (i = 0; i < locations.length; i++) {
+			marker = new google.maps.Marker({
+					position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+					map: map
+			});
+
+			google.maps.event.addListener(marker, 'click', (function (marker, i) {
+					return function () {
+							infowindow.setContent(locations[i][0]);
+							infowindow.open(map, marker);
+					}
+			})(marker, i));
+	}
+}
+
+renderPage();
